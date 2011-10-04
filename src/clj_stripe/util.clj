@@ -42,3 +42,10 @@
 		)
 		(catch java.lang.Exception e e))
 	)
+
+(defn url-with-optional-params
+  [url m [& param-names]]
+  (let [params-str (reduce #(append-param %1 %2 (get m %2 nil)) nil param-names)]
+    (str url (if params-str (str "?" params-str) ""))
+    )
+  )
