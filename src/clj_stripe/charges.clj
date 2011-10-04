@@ -3,17 +3,9 @@
     (:use clj-stripe.common)
     (:require [clj-stripe.util :as util]))
 
-(defn card
-	([card-token] {"card" card-token})
-	([number expiration & extra-info] (apply util/merge-maps number expiration extra-info))
-	)
-
 (defn customer
 	[customer-id]
 	{"customer" customer-id})
-
-(defn amount [a] {"amount" a})
-(defn money-quantity [a currency] (into {"currency" currency} (amount a)))
 
 (defn create-charge
   [money-quantity & extra-info]

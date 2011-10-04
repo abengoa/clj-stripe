@@ -24,6 +24,15 @@
 (defn cvc [v] {"card[cvc]" v})
 (defn number [n] {"card[number]" n})
 (defn description [d] {"description" d})
+(defn elem-name [n] {"name" n})
+
+(defn card
+	([card-token] {"card" card-token})
+	([number expiration & extra-info] (apply util/merge-maps number expiration extra-info))
+	)
+
+(defn amount [a] {"amount" a})
+(defn money-quantity [a currency] (into {"currency" currency} (amount a)))
 
 (defn offset [o] {"offset" o})
 (defn limit-count [c] {"count" c})
