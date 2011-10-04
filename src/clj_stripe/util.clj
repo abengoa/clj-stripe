@@ -33,3 +33,12 @@
 		)
 		(catch java.lang.Exception e e))
 	)
+
+(defn delete-request
+	[token url]
+		(try
+		(let [result (client/delete url {:basic-auth [token] :throw-exceptions false})]
+			(json/read-json (:body result))
+		)
+		(catch java.lang.Exception e e))
+	)
