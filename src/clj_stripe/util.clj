@@ -7,6 +7,11 @@
 
 (defn remove-nulls [m] (into {} (remove (comp nil? second) m)))
 
+(defn merge-maps
+  [& maps]
+  (remove-nulls (reduce into {} maps))
+  )
+
 (defn append-param
   [s name value]
   (if value
@@ -15,6 +20,13 @@
       (str s "&" (print-param name value))
       (print-param name value)))
     s))
+
+(defn url-with-optional-params
+  [url m [& param-names]]
+  (let [params-str (reduce #(append-param %1 %2 (get m %2 nil)) nil param-names)]
+    (str url (if params-str (str "?" params-str) ""))
+    )
+  )
 
 (defn post-request
 	[token url params]
@@ -42,10 +54,3 @@
 		)
 		(catch java.lang.Exception e e))
 	)
-
-(defn url-with-optional-params
-  [url m [& param-names]]
-  (let [params-str (reduce #(append-param %1 %2 (get m %2 nil)) nil param-names)]
-    (str url (if params-str (str "?" params-str) ""))
-    )
-  )
