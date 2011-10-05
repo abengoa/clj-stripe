@@ -1,1 +1,0 @@
-(ns clj-stripe.core)
