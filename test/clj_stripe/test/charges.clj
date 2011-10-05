@@ -6,11 +6,12 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 
-(ns clj-stripe.test.cards
-  (:use [clj-stripe common cards])
+(ns clj-stripe.test.charges
+  (:use [clj-stripe common cards charges])
   (:require [clojure.test :as test]))
 
 (with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
+  
   (def test-card (card (number "4242424242424242") (expiration 12 2012) (cvc 123) (description "a normal cc") (elem-name "my first cc")))
 
   (def create-token-op (create-card-token test-card))

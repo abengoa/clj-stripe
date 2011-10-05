@@ -1,0 +1,26 @@
+== clj-stripe
+
+clj-stripe is a library that provides Clojure bindings for the Stripe API.
+
+== Usage
+
+clj-stripe wraps around the Stripe REST API. For a detailed explanation of the available operations and parameters visit https://stripe.com/api/docs .
+
+The general way of invoking operation is:
+
+* To execute an operation, first create it using the appropriate funcion. For example, to create an operation for retrieving a customer, just execute
+(customers/get-customer "mycustomerid")
+That will return a map that represents the action of retrieving that customer.
+* Some operations require parameters that are provided through other functions. For example, the function customers/get-customers (that retrieves all customers) accepts two optional parameters, count and offset. To create that operation you must use auxiliary functions defined in the common namespace:
+(customers/get-customers (common/limit-count 10) (common/offset 4))
+or, for brevity,
+(customers/get-customers (common/position 10 4))
+* Once created, execute an operation by passing it as parameter to the common/execute multimethod.
+* Wrap all the calls to execute in a call to common/with-token. That will provide the authentication token needed when invoking the Stripe API.
+
+
+== License
+
+Copyright (C) 2011 Alberto Bengoa
+
+Distributed under the Eclipse Public License, the same as Clojure.
