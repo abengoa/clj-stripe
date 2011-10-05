@@ -32,7 +32,7 @@
 	)
 
 (defn amount [a] {"amount" a})
-(defn currency [c] {"currency" a})
+(defn currency [c] {"currency" c})
 (defn money-quantity [a c] (into (currency c) (amount a)))
 
 (defn offset [o] {"offset" o})
