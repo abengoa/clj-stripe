@@ -16,6 +16,9 @@
   (util/post-request stripe-token (str *api-root* "/tokens") (dissoc op-data :operation)))
 
 (defn get-card-token
+  "Creates a get-card-token operation.
+  Requires a token id as a string.
+  Execute with common/execute."
   [id]
   {:operation :get-card-token "id" id})
 
