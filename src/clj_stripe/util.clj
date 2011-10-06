@@ -8,57 +8,60 @@
 
 (ns clj-stripe.util
 	(:require [clj-http.client :as client]
-		[clojure.contrib.json :as json])
-)
+		  [clojure.contrib.json :as json]))
 
-(defn keys-2-strings [km] (reduce (fn [m [k v]] (assoc m (name k) v)) {} km))
+(defn keys-2-strings 
+  "Converts all the keys of a map from keywords to strings."
+  [km] 
+  (reduce (fn [m [k v]] (assoc m (name k) v)) {} km))
 
-(defn remove-nulls [m] (into {} (remove (comp nil? second) m)))
+(defn- remove-nulls 
+  "Removes from a map the keys with nil value."
+  [m]
+  (into {} (remove (comp nil? second) m)))
 
 (defn merge-maps
+  "Merges several maps into one, removing any key with nil value."
   [& maps]
-  (remove-nulls (reduce into {} maps))
-  )
+  (remove-nulls (reduce into {} maps)))
 
-(defn append-param
+(defn- append-param
+  "Appends a URL parameter to a string."
   [s name value]
   (if value
     (let [print-param (fn [n v] (str n "=" v))]
-    (if (and s (> (count s) 0))
-      (str s "&" (print-param name value))
-      (print-param name value)))
+      (if (and s (> (count s) 0))
+	(str s "&" (print-param name value))
+	(print-param name value)))
     s))
 
 (defn url-with-optional-params
+  "If parameters are provided, creates a parametrized URL as 
+  originalurl?param1name=param1value&param2name=param2value&..."
   [url m [& param-names]]
   (let [params-str (reduce #(append-param %1 %2 (get m %2 nil)) nil param-names)]
-    (str url (if params-str (str "?" params-str) ""))
-    )
-  )
+    (str url (if params-str (str "?" params-str) ""))))
 
 (defn post-request
-	[token url params]
-		(try
-		(let [result (client/post url {:basic-auth [token] :query-params params :throw-exceptions false})]
-			(json/read-json (:body result))
-		)
-		(catch java.lang.Exception e e))
-	)
+  "POSTs a to a url using the provided authentication token and parameters."
+  [token url params]
+  (try
+    (let [result (client/post url {:basic-auth [token] :query-params params :throw-exceptions false})]
+      (json/read-json (:body result)))
+    (catch java.lang.Exception e e)))
 
 (defn get-request
-	[token url]
-		(try
-		(let [result (client/get url {:basic-auth [token] :throw-exceptions false})]
-			(json/read-json (:body result))
-		)
-		(catch java.lang.Exception e e))
-	)
+  "Issues a GET request to the specified url, using the provided authentication token and parameters."
+  [token url]
+  (try
+    (let [result (client/get url {:basic-auth [token] :throw-exceptions false})]
+      (json/read-json (:body result)))
+    (catch java.lang.Exception e e)))
 
 (defn delete-request
-	[token url]
-		(try
-		(let [result (client/delete url {:basic-auth [token] :throw-exceptions false})]
-			(json/read-json (:body result))
-		)
-		(catch java.lang.Exception e e))
-	)
+  "Issues a DELETE request to the specified url, using the provided authentication token and parameters."
+  [token url]
+  (try
+    (let [result (client/delete url {:basic-auth [token] :throw-exceptions false})]
+      (json/read-json (:body result)))
+    (catch java.lang.Exception e e)))
