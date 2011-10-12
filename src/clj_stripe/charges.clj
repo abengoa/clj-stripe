@@ -11,14 +11,9 @@
     (:use clj-stripe.common)
     (:require [clj-stripe.util :as util]))
 
-(defn customer
-   "Creates the data for a customer identifier"
-  [customer-id]
-  {"customer" customer-id})
-
 (defn create-charge
   "Creates a new charge operation.
-  Requires one money quantity (see common/money-quantity), and either a customer (see customer) or a card (see common/card).
+  Requires one money quantity (see common/money-quantity), and either a customer (see common/customer) or a card (see common/card).
   Optionally accepts a desciption (see common/description).
   Execute the operation using common/execute."
   [money-quantity & extra-info]

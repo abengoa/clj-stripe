@@ -91,6 +91,11 @@
   [n] 
   {"name" n})
 
+(defn customer
+   "Creates the data for a customer identifier"
+  [customer-id]
+  {"customer" customer-id})
+
 (defn card
   "Creates a new credit card. It accepts either:
     A credit card token (see cards/create-token or stripe.js)
