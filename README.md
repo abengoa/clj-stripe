@@ -46,66 +46,77 @@ or, for brevity,
 ```
 
 2. To show a user the list of available plans:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (plans/get-all-plans)))
 ```
 
 3. When a new user signs up, create a new customer:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (customers/create-customer (common/card "A card token obtained with stripe.js") (customers/email "site@stripe.com") (common/plan "plan1"))))
 ```
 
 4. To display the customer information:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (customers/get-customer "cu_1mXfGxS9m8")))
 ```
 
 5. And the billing status of the customer:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (invoices/get-upcoming-invoice "cu_1mXfGxS9m8")))
 ```
 
 6. For a one time charge to an existing customer:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-charge (common/money-quantity 5000 "usd") (common/customer "cu_1mXfGxS9m8") (common/description "This an extra charge for some stuff"))))
 ```
 
 7. Get all the charges that were billed to a customer:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8"))))
 ```
 
 8. Get all the charges of a customer, paginated (get 5 charges starting at index 20):
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8") (common/position 5 20))))
 ```
 
 9. If a charge needs to be refunded
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-refund "charge-id")))
 ```
 
 10. Upgrade the plan of a customer
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/subscribe-customer (common/plan "plan2") (common/customer "cu_1mXfGxS9m8") (subscriptions/do-not-prorate))))
 ```
 
 11. Unsubscribe a customer from the current plan
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/unsubscribe-customer (common/customer "cu_1mXfGxS9m8") (subscriptions/immediately))))
 ```
 
 12. Delete a customer
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (customers/delete-customer "cu_1mXfGxS9m8")))
