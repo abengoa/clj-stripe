@@ -24,6 +24,7 @@ or, for brevity,
 ================================
 
 1. Import the namespaces you may need
+
 ```
 (:require [clj-stripe.util :as util]
 	  [clj-stripe.common :as common]
@@ -37,6 +38,7 @@ or, for brevity,
 ```
 
 1. First step is to create a some subscription plans:
+
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (plans/create-plan "plan1" (common/money-quantity 500 "usd") (plans/monthly) "Starter"))
