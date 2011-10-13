@@ -29,6 +29,7 @@ or, for brevity,
 (:require [clj-stripe.util :as util]
 	  [clj-stripe.common :as common]
 	  [clj-stripe.plans :as plans]
+	  [clj-stripe.coupons :as coupons]
 	  [clj-stripe.charges :as charges]
 	  [clj-stripe.cards :as cards]
 	  [clj-stripe.subscriptions :as subscriptions]
