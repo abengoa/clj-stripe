@@ -81,6 +81,11 @@
   [n]
   {"card[number]" n})
 
+(defn owner-name 
+  "Defines the name of an element."
+  [n] 
+  {"card[name]" n})
+  
 (defn description 
   "Creates the description of an element."
   [d]
@@ -104,7 +109,7 @@
       Required: credit card number (see number)
       Required: expiration date (see expiration)
       Optional: credit card verification code (see cvc)
-      Optional: cardholder's name (see elem-name)
+      Optional: cardholder's name (see owner-name)
       Optional: address line 1 (see address1)
       Optional: address line 2 (see address2)
       Optional: address zip code (see zip)

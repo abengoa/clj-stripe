@@ -1,4 +1,4 @@
-(defproject clj-stripe "1.0.0-SNAPSHOT"
+(defproject abengoa/clj-stripe "1.0.0"
   :description "Clojure binding for Stripe"
   :dependencies [[org.clojure/clojure "1.2.1"]
 		 [clojure-contrib "1.2.0"]
