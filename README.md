@@ -73,49 +73,63 @@ or, for brevity,
     (common/execute (invoices/get-upcoming-invoice (common/customer "cu_1mXfGxS9m8"))))
 ```
 
-6. For a one time charge to an existing customer:
+6. Get all the invoices of a customer:
+
+```
+(common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
+	(common/execute (invoices/get-all-invoices (common/customer "cu_1mXfGxS9m8"))))
+```
+
+7. Get an individual invoice:
+
+```
+(common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
+	(common/execute (invoices/get-invoice "INVOICE_ID")))
+```
+
+8. For a one time charge to an existing customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-charge (common/money-quantity 5000 "usd") (common/customer "cu_1mXfGxS9m8") (common/description "This an extra charge for some stuff"))))
 ```
 
-7. Get all the charges that were billed to a customer:
+9. Get all the charges that were billed to a customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8"))))
 ```
 
-8. Get all the charges of a customer, paginated (get 5 charges starting at index 20):
+10. Get all the charges of a customer, paginated (get 5 charges starting at index 20):
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8") (common/position 5 20))))
 ```
 
-9. If a charge needs to be refunded
+11. If a charge needs to be refunded
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-refund "charge-id")))
 ```
 
-10. Upgrade the plan of a customer
+12. Upgrade the plan of a customer
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/subscribe-customer (common/plan "plan2") (common/customer "cu_1mXfGxS9m8") (subscriptions/do-not-prorate))))
 ```
 
-11. Unsubscribe a customer from the current plan
+13. Unsubscribe a customer from the current plan
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/unsubscribe-customer (common/customer "cu_1mXfGxS9m8") (subscriptions/immediately))))
 ```
 
-12. Delete a customer
+14. Delete a customer
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
