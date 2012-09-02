@@ -23,12 +23,19 @@ or, for brevity,
   Examples
 ================================
 
-1. Import the namespaces you may need
+* Declare the dependency to clj-stripe in your project.clj
+
+```
+:dependencies [abengoa/clj-stripe "1.0.0"]
+```
+
+* Import the namespaces you may need
 
 ```
 (:require [clj-stripe.util :as util]
 	  [clj-stripe.common :as common]
 	  [clj-stripe.plans :as plans]
+	  [clj-stripe.coupons :as coupons]
 	  [clj-stripe.charges :as charges]
 	  [clj-stripe.cards :as cards]
 	  [clj-stripe.subscriptions :as subscriptions]
@@ -37,7 +44,7 @@ or, for brevity,
 	  [clj-stripe.invoiceitems :as invoiceitems])
 ```
 
-1. First step is to create a some subscription plans:
+* First step is to create a some subscription plans:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
@@ -45,91 +52,91 @@ or, for brevity,
     (common/execute (plans/create-plan "plan2" (common/money-quantity 1000 "usd") (plans/monthly) "Professional")))
 ```
 
-2. To show a user the list of available plans:
+* To show a user the list of available plans:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (plans/get-all-plans)))
 ```
 
-3. When a new user signs up, create a new customer:
+* When a new user signs up, create a new customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (customers/create-customer (common/card "A card token obtained with stripe.js") (customers/email "site@stripe.com") (common/plan "plan1"))))
 ```
 
-4. To display the customer information:
+* To display the customer information:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (customers/get-customer "cu_1mXfGxS9m8")))
 ```
 
-5. And the billing status of the customer:
+* And the billing status of the customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (invoices/get-upcoming-invoice (common/customer "cu_1mXfGxS9m8"))))
 ```
 
-6. Get all the invoices of a customer:
+* Get all the invoices of a customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
 	(common/execute (invoices/get-all-invoices (common/customer "cu_1mXfGxS9m8"))))
 ```
 
-7. Get an individual invoice:
+* Get an individual invoice:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
 	(common/execute (invoices/get-invoice "INVOICE_ID")))
 ```
 
-8. For a one time charge to an existing customer:
+* For a one time charge to an existing customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-charge (common/money-quantity 5000 "usd") (common/customer "cu_1mXfGxS9m8") (common/description "This an extra charge for some stuff"))))
 ```
 
-9. Get all the charges that were billed to a customer:
+* Get all the charges that were billed to a customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8"))))
 ```
 
-10. Get all the charges of a customer, paginated (get 5 charges starting at index 20):
+* Get all the charges of a customer, paginated (get 5 charges starting at index 20):
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8") (common/position 5 20))))
 ```
 
-11. If a charge needs to be refunded
+* If a charge needs to be refunded
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-refund "charge-id")))
 ```
 
-12. Upgrade the plan of a customer
+* Upgrade the plan of a customer
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/subscribe-customer (common/plan "plan2") (common/customer "cu_1mXfGxS9m8") (subscriptions/do-not-prorate))))
 ```
 
-13. Unsubscribe a customer from the current plan
+* Unsubscribe a customer from the current plan
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/unsubscribe-customer (common/customer "cu_1mXfGxS9m8") (subscriptions/immediately))))
 ```
 
-14. Delete a customer
+* Delete a customer
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
