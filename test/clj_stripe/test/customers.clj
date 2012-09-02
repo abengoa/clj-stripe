@@ -12,16 +12,13 @@
 
 (with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
 
-  (def test-card (card (number "4242424242424242") 
-		        (expiration 12 2012)
-			(cvc 123)
-			(description "a normal cc")
-			(elem-name "my first cc")))
+  (def test-card (card (number "4242424242424242") (expiration 12 2012) (cvc 123) (owner-name "Mr. Owner")))
   (def create-customer-op (create-customer 
 			      test-card
 			      (email "mrtest@teststripe.com")
 			      (description "A test customer") 
-			      (trial-end (+ 10000 (System/currentTimeMillis)))))
+			      ;(trial-end (+ 10000 (System/currentTimeMillis)))
+				  ))
 
   (def customer-result (execute create-customer-op))
   (def get-customer-op (get-customer (:id customer-result)))
@@ -47,5 +44,7 @@
   (def delete-customer-result (execute delete-customer-op))
   (def get-all-customers-result-2 (execute get-all-customers-op))
 
-  (test/deftest delete-customer-test
-    (test/is (not (nil? (some #{(:id get-customer-result)} (map :id (:data get-all-customers-result-2))))))))
+  ;(test/deftest delete-customer-test
+  ;  (test/is (not (nil? (some #{(:id get-customer-result)} (map :id (:data get-all-customers-result-2)))))))
+	
+	)
