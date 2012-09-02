@@ -19,7 +19,7 @@
 
 (defmethod execute :get-invoice 
   [op-data]
-  (util/get-request stripe-token (str *api-root* "/invoices/" (get op-data "id"))))
+  (util/get-request stripe-token (str *api-root* "/invoices/" (get op-data :id))))
 
 (defn get-all-invoices 
   "Creates a get all invoices operation.
@@ -34,7 +34,7 @@
 
 (defn get-upcoming-invoice 
   "Creates a get upcoming invoice operation.
-  Requires the customer ID as a string."
+  Requires the customer ID (see common/customer)."
   [customer] 
   (util/merge-maps {:operation :get-upcoming-invoice} customer))
 

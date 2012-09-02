@@ -70,7 +70,7 @@ or, for brevity,
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
-    (common/execute (invoices/get-upcoming-invoice "cu_1mXfGxS9m8")))
+    (common/execute (invoices/get-upcoming-invoice (common/customer "cu_1mXfGxS9m8"))))
 ```
 
 6. For a one time charge to an existing customer:
