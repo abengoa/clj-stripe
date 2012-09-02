@@ -44,6 +44,8 @@
   (def delete-customer-result (execute delete-customer-op))
   (def get-all-customers-result-2 (execute get-all-customers-op))
 
+  ;; This test worked at the start of Stripe business, but now there are too many users in the test account
+  ;; and pagination should be used to search for the newly created user.
   ;(test/deftest delete-customer-test
   ;  (test/is (not (nil? (some #{(:id get-customer-result)} (map :id (:data get-all-customers-result-2)))))))
 	
