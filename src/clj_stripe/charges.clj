@@ -55,5 +55,4 @@
 
 (defmethod execute :refund-charge 
   [op-data]
-  (util/post-request stripe-token (str *api-root* "/charges/" (get op-data "id") "/refund") (dissoc op-data :operation)))
-
+  (util/post-request stripe-token (str *api-root* "/charges/" (get op-data "id") "/refund") (dissoc op-data "id" :operation)))
