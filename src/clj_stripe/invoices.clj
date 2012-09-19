@@ -19,7 +19,7 @@
 
 (defmethod execute :get-invoice 
   [op-data]
-  (util/get-request stripe-token (str *api-root* "/invoices/" (get op-data "id"))))
+  (util/get-request *stripe-token* (str *api-root* "/invoices/" (get op-data "id"))))
 
 (defn get-all-invoices 
   "Creates a get all invoices operation.
@@ -30,7 +30,7 @@
 
 (defmethod execute :get-all-invoices 
   [op-data]
-  (util/get-request stripe-token (util/url-with-optional-params (str *api-root* "/invoices") op-data ["count" "offset" "customer"])))
+  (util/get-request *stripe-token* (util/url-with-optional-params (str *api-root* "/invoices") op-data ["count" "offset" "customer"])))
 
 (defn get-upcoming-invoice 
   "Creates a get upcoming invoice operation.
@@ -40,4 +40,4 @@
 
 (defmethod execute :get-upcoming-invoice 
   [op-data]
-  (util/get-request stripe-token (str *api-root* "/invoices/upcoming?customer=" (get op-data "customer"))))
+  (util/get-request *stripe-token* (str *api-root* "/invoices/upcoming?customer=" (get op-data "customer"))))

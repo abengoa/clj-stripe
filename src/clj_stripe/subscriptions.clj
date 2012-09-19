@@ -34,7 +34,7 @@
 
 (defmethod execute :subscribe-customer
   [op-data]
-  (util/post-request stripe-token (str *api-root* "/customers/" (get op-data "customer") "/subscription") (dissoc op-data :operation "customer")))
+  (util/post-request *stripe-token* (str *api-root* "/customers/" (get op-data "customer") "/subscription") (dissoc op-data :operation "customer")))
 
 (defn at-period-end
   "Specifies that a cancelled subscription must be continued until the end of the current subscription period."
@@ -55,4 +55,4 @@
 
 (defmethod execute :unsubscribe-customer 
   [op-data]
-  (util/delete-request stripe-token (util/url-with-optional-params (str *api-root* "/customers/" (get op-data "customer") "/subscription") op-data ["at_period_end"])))
+  (util/delete-request *stripe-token* (util/url-with-optional-params (str *api-root* "/customers/" (get op-data "customer") "/subscription") op-data ["at_period_end"])))
