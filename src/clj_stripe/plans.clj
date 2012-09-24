@@ -39,7 +39,7 @@
 
 (defmethod execute :create-plan 
   [op-data] 
-  (util/post-request stripe-token (str *api-root* "/plans") (dissoc op-data :operation)))
+  (util/post-request *stripe-token* (str *api-root* "/plans") (dissoc op-data :operation)))
 
 (defn get-plan
   "Defines a get plan operation.
@@ -49,7 +49,7 @@
 
 (defmethod execute :get-plan 
   [op-data] 
-  (util/get-request stripe-token (str *api-root* "/plans/" (get op-data "id"))))
+  (util/get-request *stripe-token* (str *api-root* "/plans/" (get op-data "id"))))
 
 (defn delete-plan
   "Creates a delete plan operation.
@@ -59,7 +59,7 @@
 
 (defmethod execute :delete-plan 
   [op-data] 
-  (util/delete-request stripe-token (str *api-root* "/plans/" (get op-data :id))))
+  (util/delete-request *stripe-token* (str *api-root* "/plans/" (get op-data :id))))
 
 (defn get-all-plans
   "Creates a get all plans operation.
@@ -69,5 +69,5 @@
 
 (defmethod execute :get-all-plans 
   [op-data]
-  (util/get-request stripe-token (util/url-with-optional-params (str *api-root* "/plans") op-data ["count" "offset"])))
+  (util/get-request *stripe-token* (util/url-with-optional-params (str *api-root* "/plans") op-data ["count" "offset"])))
 

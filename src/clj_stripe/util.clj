@@ -8,7 +8,7 @@
 
 (ns clj-stripe.util
 	(:require [clj-http.client :as client]
-		  [clojure.contrib.json :as json]))
+		  [clojure.data.json :as json]))
 
 (defn keys-2-strings 
   "Converts all the keys of a map from keywords to strings."

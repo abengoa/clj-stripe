@@ -29,7 +29,7 @@
   [& extra-info]
   (apply util/merge-maps {:operation :create-customer} extra-info))
 
-(defmethod execute :create-customer [op-data] (util/post-request stripe-token (str *api-root* "/customers") (dissoc op-data :operation)))
+(defmethod execute :create-customer [op-data] (util/post-request *stripe-token* (str *api-root* "/customers") (dissoc op-data :operation)))
 
 (defn get-customer
   "Creates a get-customer operation.
@@ -40,7 +40,7 @@
 
 (defmethod execute :get-customer
   [op-data] 
-  (util/get-request stripe-token (str *api-root* "/customers/" (get op-data :customer-id))))
+  (util/get-request *stripe-token* (str *api-root* "/customers/" (get op-data :customer-id))))
 
 (defn get-customers
   "Creates a get-customers operation.
@@ -51,7 +51,7 @@
 
 (defmethod execute :get-customers
   [op-data]
-  (util/get-request stripe-token (util/url-with-optional-params (str *api-root* "/customers") op-data ["offset" "count"])))
+  (util/get-request *stripe-token* (util/url-with-optional-params (str *api-root* "/customers") op-data ["offset" "count"])))
 
 (defn update-customer
   "Creates an update-customer operation.
@@ -67,7 +67,7 @@
 
 (defmethod execute :update-customer
   [op-data]
-  (util/post-request stripe-token (str *api-root* "/customers/" (:customer-id op-data)) (dissoc op-data :operation :customer-id)))
+  (util/post-request *stripe-token* (str *api-root* "/customers/" (:customer-id op-data)) (dissoc op-data :operation :customer-id)))
 
 (defn delete-customer
   "Creates an delete-customer operation.
@@ -78,4 +78,4 @@
 
 (defmethod execute :delete-customer
   [op-data]
-  (util/delete-request stripe-token (str *api-root* "/customers/" (get op-data :customer-id))))
+  (util/delete-request *stripe-token* (str *api-root* "/customers/" (get op-data :customer-id))))

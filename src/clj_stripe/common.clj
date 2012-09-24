@@ -13,12 +13,12 @@
 ;; Root URL for the API calls
 (defonce *api-root* "https://api.stripe.com/v1")
 
-(defonce stripe-token nil)
+(defonce ^:dynamic *stripe-token* nil)
 
 (defmacro with-token
   "Binds the specified Stripe authentication token to the stripe-token variable and executes the body."
   [token & body]
-  `(binding [stripe-token ~token] ~@body))
+  `(binding [*stripe-token* ~token] ~@body))
 
 (defmulti execute 
   "Executes a Stripe API operation. 

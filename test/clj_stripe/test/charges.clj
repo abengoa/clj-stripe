@@ -45,5 +45,5 @@
 ;    (test/is (= get-token-op (assoc {:operation :get-card-token} "id" (:id token-response))))
 ;    )
 
-  )
+;  )
 
