@@ -11,7 +11,7 @@
     (:require [clj-stripe.util :as util]))
 
 ;; Root URL for the API calls
-(defonce *api-root* "https://api.stripe.com/v1")
+(defonce api-root "https://api.stripe.com/v1")
 
 (defonce ^:dynamic *stripe-token* nil)
 

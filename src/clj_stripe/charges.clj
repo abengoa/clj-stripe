@@ -21,7 +21,7 @@
 
 (defmethod execute :charge 
   [op-data] 
-  (util/post-request *stripe-token* (str *api-root* "/charges") (dissoc op-data :operation)))
+  (util/post-request *stripe-token* (str api-root "/charges") (dissoc op-data :operation)))
 
 (defn get-charge
   "Creates a new get-charge operation.
@@ -32,7 +32,7 @@
 
 (defmethod execute :get-charge 
   [op-data] 
-  (util/get-request *stripe-token* (str *api-root* "/charges/" (get op-data "id"))))
+  (util/get-request *stripe-token* (str api-root "/charges/" (get op-data "id"))))
 
 (defn get-all-charges
   "Creates a new get-all-charges operation.
@@ -43,7 +43,7 @@
 
 (defmethod execute :get-all-charges 
   [op-data] 
-  (util/get-request *stripe-token* (util/url-with-optional-params (str *api-root* "/charges") op-data ["customer" "count" "offset"])))
+  (util/get-request *stripe-token* (util/url-with-optional-params (str api-root "/charges") op-data ["customer" "count" "offset"])))
 
 (defn create-refund
   "Creates a charge-refund operation.
@@ -55,4 +55,4 @@
 
 (defmethod execute :refund-charge 
   [op-data]
-  (util/post-request *stripe-token* (str *api-root* "/charges/" (get op-data "id") "/refund") (dissoc op-data "id" :operation)))
+  (util/post-request *stripe-token* (str api-root "/charges/" (get op-data "id") "/refund") (dissoc op-data "id" :operation)))

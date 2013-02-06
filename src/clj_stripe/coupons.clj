@@ -64,7 +64,7 @@
 
 (defmethod execute :create-coupon 
   [op-data] 
-  (util/post-request *stripe-token* (str *api-root* "/coupons") (dissoc op-data :operation)))
+  (util/post-request *stripe-token* (str api-root "/coupons") (dissoc op-data :operation)))
 
 (defn get-coupon
   "Defines a get coupon operation.
@@ -74,7 +74,7 @@
 
 (defmethod execute :get-coupon 
   [op-data] 
-  (util/get-request *stripe-token* (str *api-root* "/coupons/" (get op-data "id"))))
+  (util/get-request *stripe-token* (str api-root "/coupons/" (get op-data "id"))))
 
 (defn delete-coupon
   "Creates a delete coupon operation.
@@ -84,7 +84,7 @@
 
 (defmethod execute :delete-coupon 
   [op-data] 
-  (util/delete-request *stripe-token* (str *api-root* "/coupons/" (get op-data :id))))
+  (util/delete-request *stripe-token* (str api-root "/coupons/" (get op-data :id))))
 
 (defn get-all-coupons
   "Creates a get all coupons operation.
@@ -94,5 +94,5 @@
 
 (defmethod execute :get-all-coupons 
   [op-data]
-  (util/get-request *stripe-token* (util/url-with-optional-params (str *api-root* "/coupons") op-data ["count" "offset"])))
+  (util/get-request *stripe-token* (util/url-with-optional-params (str api-root "/coupons") op-data ["count" "offset"])))
 

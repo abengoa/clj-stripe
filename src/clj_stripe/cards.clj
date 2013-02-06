@@ -21,7 +21,7 @@
 
 (defmethod execute :create-card-token
   [op-data]
-  (util/post-request *stripe-token* (str *api-root* "/tokens") (dissoc op-data :operation)))
+  (util/post-request *stripe-token* (str api-root "/tokens") (dissoc op-data :operation)))
 
 (defn get-card-token
   "Creates a get-card-token operation.
@@ -32,4 +32,4 @@
 
 (defmethod execute :get-card-token
   [op-data]
-  (util/get-request *stripe-token* (str *api-root* "/tokens/" (get op-data "id"))))
+  (util/get-request *stripe-token* (str api-root "/tokens/" (get op-data "id"))))
