@@ -26,7 +26,7 @@ or, for brevity,
 * Declare the dependency to clj-stripe in your project.clj
 
 ```
-:dependencies [abengoa/clj-stripe "1.0.3"]
+:dependencies [abengoa/clj-stripe "1.0.4"]
 ```
 
 * Import the namespaces you may need
