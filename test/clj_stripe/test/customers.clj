@@ -10,13 +10,13 @@
   (:use [clj-stripe common customers])
   (:require [clojure.test :as test]))
 
-(with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
+(with-token ":"
 
-  (def test-card (card (number "4242424242424242") (expiration 12 2012) (cvc 123) (owner-name "Mr. Owner")))
-  (def create-customer-op (create-customer 
+  (def test-card (card (number "4242424242424242") (expiration 12 2020) (cvc 123) (owner-name "Mr. Owner")))
+  (def create-customer-op (create-customer
 			      test-card
 			      (email "mrtest@teststripe.com")
-			      (description "A test customer") 
+			      (description "A test customer")
 			      ;(trial-end (+ 10000 (System/currentTimeMillis)))
 				  ))
 
@@ -39,7 +39,7 @@
 
   (test/deftest modify-customer-test
     (test/is (= (assoc customer-result :email (get new-email "email")) get-customer-result-2)))
-  
+
   (def delete-customer-op (delete-customer (:id customer-result)))
   (def delete-customer-result (execute delete-customer-op))
   (def get-all-customers-result-2 (execute get-all-customers-op))
@@ -48,5 +48,5 @@
   ;; and pagination should be used to search for the newly created user.
   ;(test/deftest delete-customer-test
   ;  (test/is (not (nil? (some #{(:id get-customer-result)} (map :id (:data get-all-customers-result-2)))))))
-	
+
 	)
