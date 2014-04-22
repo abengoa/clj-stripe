@@ -10,7 +10,7 @@
   (:use [clj-stripe common cards])
   (:require [clojure.test :as test]))
 
-(with-token ""
+(with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
   (def test-card (card (number "4242424242424242") (expiration 12 2020) (cvc 123) (owner-name "Mr. Owner")))
 
   (def create-token-op (create-card-token test-card))
