@@ -29,7 +29,7 @@ or, for brevity,
 :dependencies [abengoa/clj-stripe "1.0.4"]
 ```
 
-* Import the namespaces you may need
+* Import the namespaces you may need:
 
 ```
 (:require [clj-stripe.util :as util]
@@ -44,7 +44,7 @@ or, for brevity,
 	  [clj-stripe.invoiceitems :as invoiceitems])
 ```
 
-* First step is to create a some subscription plans:
+* First step is to create some subscription plans:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
@@ -52,7 +52,7 @@ or, for brevity,
     (common/execute (plans/create-plan "plan2" (common/money-quantity 1000 "usd") (plans/monthly) "Professional")))
 ```
 
-* To show a user the list of available plans:
+* To list available plans:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
@@ -115,28 +115,28 @@ or, for brevity,
     (common/execute (charges/get-all-charges (common/customer "cu_1mXfGxS9m8") (common/position 5 20))))
 ```
 
-* If a charge needs to be refunded
+* If a charge needs to be refunded:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (charges/create-refund "charge-id")))
 ```
 
-* Upgrade the plan of a customer
+* Upgrade the plan of a customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/subscribe-customer (common/plan "plan2") (common/customer "cu_1mXfGxS9m8") (subscriptions/do-not-prorate))))
 ```
 
-* Unsubscribe a customer from the current plan
+* Unsubscribe a customer from the current plan:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
     (common/execute (subscriptions/unsubscribe-customer (common/customer "cu_1mXfGxS9m8") (subscriptions/immediately))))
 ```
 
-* Delete a customer
+* Delete a customer:
 
 ```
 (common/with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
