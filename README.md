@@ -23,10 +23,10 @@ or, for brevity,
   Examples
 ================================
 
-* Declare the dependency to clj-stripe in your project.clj
+* Add clj-stripe to the `:dependencies` list in your project.clj:
 
 ```
-:dependencies [abengoa/clj-stripe "1.0.4"]
+[abengoa/clj-stripe "1.0.4"]
 ```
 
 * Import the namespaces you may need:
