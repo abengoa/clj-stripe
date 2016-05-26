@@ -10,7 +10,7 @@
   (:use [clj-stripe common customers])
   (:require [clojure.test :as test]))
 
-(with-token "vtUQeOtUnYr7PGCLQ96Ul4zqpDUO4sOE:"
+(with-token "sk_test_BQokikJOvBiI2HlWgH4olfQ2:"
 
   (def test-card (card (number "4242424242424242") (expiration 12 2020) (cvc 123) (owner-name "Mr. Owner")))
   (def create-customer-op (create-customer
