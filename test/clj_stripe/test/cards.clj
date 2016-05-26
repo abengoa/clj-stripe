@@ -20,12 +20,15 @@
 		{:operation :create-card-token, "card[number]" "4242424242424242", "card[exp_month]" 12, "card[exp_year]" 2020, "card[cvc]" 123, "card[name]" "Mr. Owner"})))
 
   (def token-response (execute create-token-op))
-
+  (def generalized-token-response (-> token-response
+                                    (dissoc :id :created :client_ip)
+                                    (update-in [:card] dissoc :id :fingerprint)))
 
   (test/deftest
     card-token-exec
-    (test/is (and (= (assoc (dissoc token-response :id :created) :card (dissoc (:card token-response) :id :fingerprint))
-                    {:livemode false, :object "token", :used false, :type "card", :card {:country "US", :customer nil, :exp_month 12, :last4 "4242", :name "Mr. Owner", :address_line2 nil, :address_line1 nil, :object "card", :address_city nil, :address_zip nil, :address_state nil, :type "Visa", :exp_year 2020, :address_country nil}}))))
+    (test/is (and (= generalized-token-response
+                    {:object "token", :card {:country "US", :metadata {}, :dynamic_last4 nil, :exp_month 12, :last4 "4242", :address_zip_check nil, :name "Mr. Owner", :address_line2 nil,  :cvc_check "unchecked", :address_line1 nil, :object "card", :address_city nil, :address_zip nil, :tokenization_method nil, :address_state nil, :address_line1_check nil, :brand "Visa", :exp_year 2020, :address_country nil,  :funding "credit"}, :livemode false, :type "card", :used false}))))
+
 
   (def get-token-op (get-card-token (:id token-response)))
   (def new-token-response (execute get-token-op))
