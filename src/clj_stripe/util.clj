@@ -7,15 +7,14 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns clj-stripe.util
-	(:require [clj-http.client :as client]
-		  [clojure.data.json :as json]))
+	(:require [clj-http.client :as client]))
 
-(defn keys-2-strings 
+(defn keys-2-strings
   "Converts all the keys of a map from keywords to strings."
-  [km] 
+  [km]
   (reduce (fn [m [k v]] (assoc m (name k) v)) {} km))
 
-(defn- remove-nulls 
+(defn- remove-nulls
   "Removes from a map the keys with nil value."
   [m]
   (into {} (remove (comp nil? second) m)))
@@ -36,7 +35,7 @@
     s))
 
 (defn url-with-optional-params
-  "If parameters are provided, creates a parametrized URL as 
+  "If parameters are provided, creates a parametrized URL as
   originalurl?param1name=param1value&param2name=param2value&..."
   [url m [& param-names]]
   (let [params-str (reduce #(append-param %1 %2 (get m %2 nil)) nil param-names)]
@@ -46,22 +45,19 @@
   "POSTs a to a url using the provided authentication token and parameters."
   [token url params]
   (try
-    (let [result (client/post url {:basic-auth [token] :query-params params :throw-exceptions false})]
-      (json/read-json (:body result)))
+    (:body (client/post url {:basic-auth [token] :query-params params :throw-exceptions false :as :json}))
     (catch java.lang.Exception e e)))
 
 (defn get-request
   "Issues a GET request to the specified url, using the provided authentication token and parameters."
   [token url]
   (try
-    (let [result (client/get url {:basic-auth [token] :throw-exceptions false})]
-      (json/read-json (:body result)))
+    (:body (client/get url {:basic-auth [token] :throw-exceptions false :as :json}))
     (catch java.lang.Exception e e)))
 
 (defn delete-request
   "Issues a DELETE request to the specified url, using the provided authentication token and parameters."
   [token url]
   (try
-    (let [result (client/delete url {:basic-auth [token] :throw-exceptions false})]
-      (json/read-json (:body result)))
+    (:body (client/delete url {:basic-auth [token] :throw-exceptions false :as :json}))
     (catch java.lang.Exception e e)))
